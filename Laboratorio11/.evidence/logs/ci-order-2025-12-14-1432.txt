@@ -1,0 +1,80 @@
+SERVICE=order-service
+IMAGE=ghcr.io/mathiasvilca/order-service:0819273
+K8S_IMAGE=ghcr.io/mathiasvilca/order-service:0819273
+TAG=0819273
+K8S_VERSION=v1.32.2
+[i] usando daemon de minikube para que el cluster vea la imagen
+[OK] build in-minikube -> ghcr.io/mathiasvilca/order-service:0819273
+The push refers to repository [ghcr.io/mathiasvilca/order-service]
+63662085c4f3: Preparing
+f4438c273a30: Preparing
+3ad2166ab7d1: Preparing
+7dbba35c7be2: Preparing
+e49530cc4892: Preparing
+25f92d32c29e: Preparing
+602c1c97924f: Preparing
+644f9c869502: Preparing
+d3ed01caa084: Preparing
+77a2b55fbe8b: Preparing
+25f92d32c29e: Waiting
+602c1c97924f: Waiting
+644f9c869502: Waiting
+d3ed01caa084: Waiting
+77a2b55fbe8b: Waiting
+3ad2166ab7d1: Pushed
+e49530cc4892: Pushed
+7dbba35c7be2: Pushed
+602c1c97924f: Layer already exists
+644f9c869502: Layer already exists
+d3ed01caa084: Layer already exists
+63662085c4f3: Pushed
+f4438c273a30: Pushed
+77a2b55fbe8b: Pushed
+25f92d32c29e: Pushed
+0819273: digest: sha256:304c1dbb45a14908c5bdda6c717fb0ce20e6981c4398d2f66138b1457c2f5329 size: 2413
+SBOM -> artifacts/order-service-sbom.json
+Verificación de firma OK
+GRYPE -> artifacts/order-service-grype.sarif (gate: fail-on high)
+Manifest -> artifacts/order-service.yaml
+[i] Asegurando minikube (k8s=v1.32.2)
+minikube status >/dev/null 2>&1 || \
+minikube start --driver=docker --kubernetes-version=v1.32.2 --cpus=4 --memory=8192
+deployment.apps/order-service configured
+service/order-service unchanged
+kubectl rollout status deploy/order-service -n default --timeout=180s
+Waiting for deployment "order-service" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "order-service" rollout to finish: 1 old replicas are pending termination...
+deployment "order-service" successfully rolled out
+[i] smoke: order-service/default -> http://127.0.0.1:8001
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".evidence/">.evidence/</a></li>
+<li><a href=".venv/">.venv/</a></li>
+<li><a href=".venv1/">.venv1/</a></li>
+<li><a href="artifacts/">artifacts/</a></li>
+<li><a href="cosign.pub">cosign.pub</a></li>
+<li><a href="docker/">docker/</a></li>
+<li><a href="docker-compose.order.test.yml">docker-compose.order.test.yml</a></li>
+<li><a href="docker-compose.user.test.yml">docker-compose.user.test.yml</a></li>
+<li><a href="healthcheck.py">healthcheck.py</a></li>
+<li><a href="Instrucciones.md">Instrucciones.md</a></li>
+<li><a href="k8s/">k8s/</a></li>
+<li><a href="Makefile">Makefile</a></li>
+<li><a href="requirements.txt">requirements.txt</a></li>
+<li><a href="scripts/">scripts/</a></li>
+<li><a href="server.py">server.py</a></li>
+<li><a href="supply-chain/">supply-chain/</a></li>
+</ul>
+<hr>
+</body>
+</html>
+[OK] SMOKE order-service -> 200
+[CI] OK -> order-service @ ghcr.io/mathiasvilca/order-service:0819273 (via registry)
