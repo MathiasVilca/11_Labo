@@ -1,0 +1,12 @@
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS      IMAGES                                       SELECTOR
+deployment.apps/order-service   1/1     1            1           7m6s    order-service   ghcr.io/mathiasvilca/order-service:85d7f49   app=order-service
+deployment.apps/user-service    1/1     1            1           7m13s   user-service    user-service:85d7f49                         app=user-service
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+service/kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP    7m38s   <none>
+service/order-service   ClusterIP   10.98.187.63    <none>        8001/TCP   7m6s    app=order-service
+service/user-service    ClusterIP   10.98.236.203   <none>        8000/TCP   7m13s   app=user-service
+
+NAME                                 READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+pod/order-service-7c455fcdd9-j7hn4   1/1     Running   0          115s    10.244.0.5   minikube   <none>           <none>
+pod/user-service-5884fb47f6-9vgp5    1/1     Running   0          7m13s   10.244.0.3   minikube   <none>           <none>

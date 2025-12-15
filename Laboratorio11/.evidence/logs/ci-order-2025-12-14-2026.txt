@@ -1,0 +1,50 @@
+SERVICE=order-service
+IMAGE=ghcr.io/mathiasvilca/order-service:85d7f49
+K8S_IMAGE=ghcr.io/mathiasvilca/order-service:85d7f49
+TAG=85d7f49
+K8S_VERSION=v1.32.2
+[i] usando daemon de minikube para que el cluster vea la imagen
+[OK] build in-minikube -> ghcr.io/mathiasvilca/order-service:85d7f49
+The push refers to repository [ghcr.io/mathiasvilca/order-service]
+37060802a5cd: Preparing
+7435bd5c9748: Preparing
+f8d93dab4cb1: Preparing
+fa9ae33badfc: Preparing
+d61875d3b71a: Preparing
+4e40cfd024d4: Preparing
+602c1c97924f: Preparing
+644f9c869502: Preparing
+d3ed01caa084: Preparing
+77a2b55fbe8b: Preparing
+4e40cfd024d4: Waiting
+602c1c97924f: Waiting
+644f9c869502: Waiting
+d3ed01caa084: Waiting
+77a2b55fbe8b: Waiting
+fa9ae33badfc: Pushed
+d61875d3b71a: Pushed
+f8d93dab4cb1: Pushed
+644f9c869502: Layer already exists
+602c1c97924f: Layer already exists
+d3ed01caa084: Layer already exists
+77a2b55fbe8b: Pushed
+4e40cfd024d4: Pushed
+7435bd5c9748: Pushed
+37060802a5cd: Pushed
+85d7f49: digest: sha256:67e2b025e5a947753f2c561f77e3f3e79f443fc6c7909456748aa8e9daa1a0d3 size: 2417
+SBOM -> artifacts/order-service-sbom.json
+Verificación de firma OK
+GRYPE -> artifacts/order-service-grype.sarif (gate: fail-on high)
+Manifest -> artifacts/order-service.yaml
+[i] Asegurando minikube (k8s=v1.32.2)
+minikube status >/dev/null 2>&1 || \
+minikube start --driver=docker --kubernetes-version=v1.32.2 --cpus=4 --memory=8192
+deployment.apps/order-service configured
+service/order-service unchanged
+kubectl rollout status deploy/order-service -n default --timeout=180s
+Waiting for deployment "order-service" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "order-service" rollout to finish: 1 old replicas are pending termination...
+deployment "order-service" successfully rolled out
+[i] smoke: order-service/default -> http://127.0.0.1:8001
+OK[OK] SMOKE order-service -> 200
+[CI] OK -> order-service @ ghcr.io/mathiasvilca/order-service:85d7f49 (via registry)
